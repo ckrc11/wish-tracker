@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>The Wishing App</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+  <div style="display:flex; justify-content: space-between;">
+    <h2>Hello {{ user.first_name }}! Let's edit your wish!</h2>
+    <a href="/logout">Logout</a>
+  </div>
+  <div>
+    <br />
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li style="color:red">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  <br />
+  <br />
+  <br />
+  <form action="/editwish/{{wish.id}}" method='POST'>
+    <div class="box">
+      {% csrf_token %}
+      <div style="display:block;">
+        <label>I wish for:</label>
+        <textarea name="wish" placeholder="Wish">{{wish.item}}</textarea>
+      </div>
+      <div style="display:block;">
+        <label>Description:</label>
+        <textarea name="description" placeholder="Description">{{wish.description}}</textarea>
+      </div>
+      <a class="button" href="/wishes">Cancel</a>
+      <input type="submit" name="submit" value="Edit">
+    </div>
+  </form>
+</body>
+
+</html>

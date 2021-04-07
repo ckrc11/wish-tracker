@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>The Wishing App</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+      {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+        <li style="color:red">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+        <div style="display: flex; flex-direction: row;">
+            <div class="box">
+              <h2>Register</h2>
+              <form action="/register" class="col s12" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s12">
+                      <label for="first">First Name</label>
+                      <input id="first" type="text" class="validate" name="first">
+                    </div>
+                </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <label for="last">Last Name</label>
+                  <input id="last" type="text" class="validate" name="last">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label for="email">Email</label>
+                  <input id="email" type="text" class="validate" name="email">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label for="password">Password</label>
+                  <input id="password" type="password" class="validate" name="password">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label for="confirm_password">Confirm PW</label>
+                  <input id="password" type="password" class="validate" name="confirm_password">
+                </div>
+              </div>
+              <input type="submit" value="Register" class="btn" style="float:right;">
+            </form>
+          </div>
+          <div class="box" style="margin-left: 100px;">
+            <form action="/login" method="POST">
+                {% csrf_token %}
+                 <h2>Login</h2>
+                 <div class="row">
+                   <div class="input-field col s12">
+                      <label for="email">Email</label>
+                      <input id="email" type="text" class="validate" name="email">
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="input-field col s12">
+                      <label for="password">Password</label>
+                      <input id="password" type="password" class="validate" name="password">
+                   </div>
+                 </div>
+                 <input type="submit" value="Login" class="btn" style="float:right;">
+             </form>
+          </div>
+    </body>
+</html>
