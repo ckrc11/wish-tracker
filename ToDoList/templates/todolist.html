@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>To Do List!</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+  </head>
+  <body>
+    <div class="container" style="display:flex; justify-content: space-between;">
+        <h2>Hello {{user.first_name}}!</h2>
+        <div style="float:right; margin-top: 10px;">
+            <a href="/logout">Logout</a>
+            <a class="button" href="/List/new">Make a list</a>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <h3>Your To Do list:</h3>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Date Added</th>
+                <th>Actions</th>
+            </tr>
+            {%for list in lists%}
+                <tr>
+                    <td>{{List.item}}</td>
+                    <td>{{list.date_added}}</td>
+                    <td>
+                        <a style="display:inline;" href="/remove/{{list.id}}">Remove</a>
+                        <p style="display:inline;" > | </p>
+                        <a style="display:inline;"  href="wishes/edit/{{list.id}}">Edit</a>
+                        <p style="display:inline;" > | </p>
+                        <a style="display:inline;" href="/grant/{{list.id}}">Granted!</a>
+                    </td>
+                </tr>
+            {%endfor%}
+        </table>
+        <br />
+        <br />
+        <h3>tasks finished:</h3>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Lists</th>
+                <th>Date Added</th>
+                <th>Date Finished</th>
+            </tr>
+            {%for wish in grantedwishes%}
+                <tr>
+                    <td>{{list.item}}</td>
+                    <td>{{List.first_name}}</td>
+                    <td>{{list.date_added}}</td>
+                    <td>{{List.date_granted}}</td>
+                </tr>
+            {%endfor%}
+        </table>
+    </div>
+  </body>
+</html>
