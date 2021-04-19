@@ -24,7 +24,7 @@
     {% endif %}
   </div>
 
-  <form action="/createToDoItem" method="POST">
+  <form action="/createtodoitem" method="POST">
     <div class="box">
       {% csrf_token %}
       <div style="display:block;">
@@ -36,7 +36,7 @@
         <textarea name="description" placeholder="Description"></textarea>
       </div>
       <div style="display:block;">
-        <a class="button" href="/wishes">Cancel</a>
+        <a class="button" href="/todolist">Cancel</a>
         <input type="submit" name="submit" value="Submit">
       </div>
     </div>

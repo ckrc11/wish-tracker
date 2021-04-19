@@ -77,10 +77,10 @@ class ToDoItemManager(models.Manager):
     
     def edittheToDoItem(self, ToDoItemhId, postData):
         errors=[]
-        if len(postData['ToDoItem']) == 0:
-            errors.append("A ToDoItem must be provided")
-        elif len(postData['ToDoItem']) < 2:
-            errors.append("A ToDoItem must consist of at least 3 characters")
+        if len(postData['toDoItem']) == 0:
+            errors.append("A toDoItem must be provided")
+        elif len(postData['toDoItem']) < 2:
+            errors.append("A toDoItem must consist of at least 3 characters")
         if len(postData['description']) == 0:
             errors.append("A description must be provided")
         elif len(postData['description']) < 2:
@@ -89,21 +89,21 @@ class ToDoItemManager(models.Manager):
             return [False, errors]
 
         editToDoItem = ToDoItem.objects.get(id=ToDoItemId)
-        editToDoItem.item = postData['ToDoItem']
+        editToDoItem.item = postData['toDoItem']
         editToDoItem.description = postData['description']
         editToDoItem.save()
         return [True]
  
 
     def grantToDoItem(self, ToDoItemId):
-        ToDoItem = ToDoItem.objects.get(id=ToDoItemId)
-        ToDoItem.date_granted = datetime.now
-        ToDoItem.granted = True
-        ToDoItem.save()
+        toDoItem = ToDoItem.objects.get(id=ToDoItemId)
+        toDoItem.date_granted = datetime.now
+        toDoItem.granted = True
+        toDoItem.save()
 
     def deleteToDoItem(self, ToDoItemId):
-        ToDoItem = ToDoItem.objects.get(id=ToDoItemId)
-        ToDoItem.delete()
+        toDoItem = ToDoItem.objects.get(id=ToDoItemId)
+        toDoItem.delete()
 
 class ToDoItem(models.Model):
     item = models.CharField(max_length=100)

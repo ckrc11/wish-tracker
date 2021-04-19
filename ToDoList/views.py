@@ -9,7 +9,7 @@ def index(request):
 
 def register(request):
     if request.method == 'GET':
-        return redirect('/ToDoItem')
+        return redirect('/todolist')
     newuser = User.objects.validate(request.POST)
     if newuser[0] == False:
         for each in newuser[1]:
@@ -17,11 +17,11 @@ def register(request):
         return redirect('/')
     if newuser[0] == True:
         request.session['id'] = newuser[1].id
-        return redirect('/ToDoItem')
+        return redirect('/todolist')
 
 def login(request):
     if 'id' in request.session:
-        return redirect('/ToDoList')
+        return redirect('/todolist')
     if request.method == 'GET':
         return redirect('/')
     else:
@@ -32,21 +32,21 @@ def login(request):
             return redirect('/')
         if user[0] == True:
             request.session['id'] = user[1].id
-            return redirect('/ToDoItem')
+            return redirect('/todolist')
 
-def ToDoItem(request):
+def todolist(request):
     if 'id' not in request.session:
         return redirect ("/")
     user= User.objects.get(id=request.session['id'])
-    toDoItem = ToDoItem.objects.filter(user=user, granted=False)
-    grantedToDoItem = ToDoItem.objects.filter(user=user, granted=True)
+    toDoItems = ToDoItem.objects.filter(user=user, granted=False)
+    grantedToDoItems = ToDoItem.objects.filter(user=user, granted=True)
 
     context = {
         "user": user,
-        "ToDoItem": ToDoItem,
-        "grantedToDoItem": grantedToDoItem
+        "toDoItems": toDoItems,
+        "grantedToDoItems": grantedToDoItems
     }
-    return render(request, 'ToDoItem.html', context)
+    return render(request, 'todolist.html', context)
 
 def newToDoItem(request):
     if 'id' not in request.session:
@@ -61,21 +61,21 @@ def createToDoItem(request):
     if 'id' not in request.session:
         return redirect ("/")
     if request.method != 'POST':
-        return redirect ("/ToDoItem")
-    new_toDoItem= ToDoItem.objects.createToDoItem(request.POST, request.session["id"])
-    if new_ToDoItem[0]== False:
+        return redirect ("/todolist")
+    new_todoitem= ToDoItem.objects.createToDoItem(request.POST, request.session["id"])
+    if new_todoitem[0]== False:
         for each in new_ToDoItem[1]:
             messages.add_message(request, messages.INFO, each)
-        return redirect('/ToDoItem/new')
+        return redirect('/todolist/new')
     else:
-        return redirect('/ToDoItem')
+        return redirect('/todolist')
 
 def edit(request, ToDoItem_id):
     if 'id' not in request.session:
         return redirect ("/")
-    ToDoItem= ToDoItem.objects.get(id=ToDoItem_id)
+    todoitem= ToDoItem.objects.get(id=ToDoItem_id)
     context = {
-        "ToDoItem": ToDoItem
+        "todoitem": todoitem
     }
     return render(request, 'edit.html', context)
 
@@ -83,26 +83,26 @@ def editToDoItem(request,ToDoItem_id):
     if 'id' not in request.session:
         return redirect ("/")
     if request.method != 'POST':
-        return redirect ("/ToDoItem")
+        return redirect ("/todolist")
     edited_ToDoItem = ToDoItem.objects.edittheToDoItem(ToDoItem_id, request.POST)
     if edited_ToDoItem[0]== False:
         for each in edited_ToDoItem[1]:
             messages.add_message(request, messages.INFO, each)
-        return redirect(f'/ToDoItem/edit/{ToDoItem_id}')
+        return redirect(f'/todolist/edit/{ToDoItem_id}')
     else:
-        return redirect("/ToDoItem")
+        return redirect("/todolist")
 
 def grant(request, ToDoItem_id):
     if 'id' not in request.session:
         return redirect ("/")
-    ToDoItem_granted =ToDoItem.objects.grantToDoItemh(ToDoItem_id)
-    return redirect("/ToDoItem")
+    ToDoItem_granted =ToDoItem.objects.grantToDoItem(ToDoItem_id)
+    return redirect("/todolist")
 
 def remove(request, ToDoItem_id):
     if 'id' not in request.session:
         return redirect ("/")
-    ToDoItem = ToDoItem.objects.deleteToDoItem(ToDoItem_id)
-    return redirect("/ToDoItem")
+    toDoItem = ToDoItem.objects.deleteToDoItem(ToDoItem_id)
+    return redirect("/todolist")
 
 def logout(request):
     if 'id' not in request.session:
