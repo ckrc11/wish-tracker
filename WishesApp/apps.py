@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class WishesAppConfig(AppConfig):
-    name = 'WishesApp'
+class ToDoListConfig(AppConfig):
+    name = 'ToDoList'

@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('date_added', models.DateField(auto_now_add=True)),
                 ('date_granted', models.DateField(auto_now=True)),
                 ('granted', models.BooleanField(default=False)),
-                ('wisher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='wisher', to='WishesApp.user')),
+                ('wisher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='wisher', to='Todolist.user')),
             ],
         ),
     ]

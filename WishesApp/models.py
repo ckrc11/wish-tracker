@@ -93,7 +93,7 @@ class wishManager(models.Manager):
         editwish.description = postData['description']
         editwish.save()
         return [True]
-
+ 
 
     def grantwish(self, wishId):
         wish = Wish.objects.get(id=wishId)
